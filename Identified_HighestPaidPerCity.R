@@ -1,11 +1,9 @@
 Identified_HighestPaidPerCity <- function (file = "CA_GeneralPayments.csv", city) {
 	readfile <- readFileforCity(file, city)
 	namedSet <- readfile[!is.na(readfile$Physician_Profile_ID),]
-	#namedSet_ <- aggregate(namedSet$Total_Amount_of_Payment_USDollars ~ namedSet$Physician_Profile_ID, namedSet, sum)
 	namedSet_ <- aggregate(namedSet$Total_Amount_of_Payment_USDollars ~ namedSet$Physician_Profile_ID, namedSet, sum)
 	colnames(namedSet_) <- c("Profile_ID", "Payment")
 	namedSetMax <- as.numeric(max(namedSet_$Payment))
-	#namedSetMax <- format(round(namedSetMax,2),nsmall=2)
 	profile_id <- namedSet_$Profile_ID[namedSet_$Payment == namedSetMax]
 	profile_id <- round(as.numeric(profile_id), 0)
 	first_name <- namedSet$Physician_First_Name[namedSet$Physician_Profile_ID == profile_id][1]
